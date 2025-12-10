@@ -3,7 +3,6 @@ import { useNavigate } from "react-router";
 import { supabase } from "../api/supabase-client";
 import { getPost } from "../api/createPost";
 import CreatePostModal from "../components/CreatePostModal";
-
 export default function PostPage() {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();

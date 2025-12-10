@@ -1,12 +1,26 @@
 import { useState } from "react";
 import { supabase } from "../api/supabase-client";
-export default function CreatePostModal({ onCreated }) {
+interface Post {
+  id: string;
+  title: string;
+  content: string;
+  created_at: string;
+  profiles: {
+    username: string;
+    full_name: string;
+  };
+}
+interface Props {
+  onCreated: (post: Post) => void;
+}
+
+export default function CreatePostModal({ onCreated }: Props) {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
 
@@ -15,7 +29,7 @@ export default function CreatePostModal({ onCreated }) {
     } = await supabase.auth.getUser();
     const { data, error } = await supabase
       .from("posts")
-      .insert([{ user_id: user.id, title, content }])
+      .insert([{ user_id: user?.id, title, content }])
       .select(
         `
         id,

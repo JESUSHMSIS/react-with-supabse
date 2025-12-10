@@ -11,7 +11,7 @@ export default function AuthPage() {
   const [message, setMessage] = useState("");
 
   const navigate = useNavigate();
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setMessage("");
